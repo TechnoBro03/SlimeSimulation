@@ -24,45 +24,36 @@ public:
     {
         unsigned int buffer_size = buffer->get_buffer_size();
         unsigned int width = buffer->get_width();
-        unsigned int height = buffer->get_height();
         float* pixels = buffer->get_pixels();
-
-        float t = blur_speed * delta_time;
 
         for (unsigned int i = 0; i < buffer_size; i += 4)
         {
-            // Fade
-            pixels[i + 3] -= fade_speed * delta_time;
-            if (pixels[i + 3] < 0)
-                pixels[i + 3] = 0;
+            float original_value = pixels[i + 3];
 
-            // Blur
-            if (blur_speed == 0)
-                continue;
-            float average_alpha = 0;
-            unsigned int x = (i % (width * 4)) / 4;
-            unsigned int y = i / (width * 4);
+            // Caclculate 9x9 average for bluring
+            float average_value = 0;
 
-            for (unsigned int sample_x = x - 1; sample_x < x + 2; sample_x++)
+            for (int offset_x = -1; offset_x <= 1; offset_x++)
             {
-                for (unsigned int sample_y = y - 1; sample_y < y + 2; sample_y++)
+                for (int offset_y = -1; offset_y <= 1; offset_y++)
                 {
-                    if (sample_x >= 0 && sample_x < width && sample_y >= 0 && sample_y < height)
-                    {
-                        unsigned int i = (sample_y * width + sample_x) * 4;
-                        average_alpha += pixels[i+3];
-                    }
+                    unsigned int sample_index = i + (offset_x * 4) + (offset_y * width * 4);
+                    if (sample_index >= 0 && sample_index < buffer_size)
+                        average_value += pixels[sample_index + 3];
                 }
             }
 
-            float original_alpha = pixels[i + 3];
-            average_alpha /= 9;
+            average_value /= 9;
 
-            float newBrightness = (1.0f - t) * original_alpha + t * average_alpha;
-            if (newBrightness < 0)
-                newBrightness = 0;
+            // Linear interpolation
+            float blur_value = original_value + (average_value - original_value) * (blur_speed * delta_time);
 
-            pixels[i + 3] = newBrightness;
+            // Fade
+            float fade_and_blur = blur_value - fade_speed * delta_time;
+            if (fade_and_blur < 0)
+                fade_and_blur = 0;
+
+            pixels[i + 3] = fade_and_blur;
         }
     }
 

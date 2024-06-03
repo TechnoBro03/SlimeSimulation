@@ -41,8 +41,9 @@ public:
         return height;
     }
 
+    // Copies the pixels of one buffer into another.
     template <typename S, typename D>
-    static void copy_buffer(Buffer<S>* source, Buffer<D>* destination)
+    static void copy_pixels(Buffer<S>* source, Buffer<D>* destination)
     {
         std::copy(source->get_pixels(), source->get_pixels() + source->get_buffer_size(), destination->get_pixels());
     }
@@ -61,14 +62,14 @@ public:
         pixels[i + 3] = color.a;
     }
 
-    sf::Color get_pixel(unsigned int i)
-    {
-        /*unsigned int i = (y * width + x) * 4;*/
-        sf::Uint8 r, g, b, a;
-        r = pixels[i];
-        g = pixels[i + 1];
-        b = pixels[i + 2];
-        a = pixels[i + 3];
-        return sf::Color(r, g, b, a);
-    }
+    //sf::Color get_pixel(unsigned int i)
+    //{
+    //    /*unsigned int i = (y * width + x) * 4;*/
+    //    sf::Uint8 r, g, b, a;
+    //    r = pixels[i];
+    //    g = pixels[i + 1];
+    //    b = pixels[i + 2];
+    //    a = pixels[i + 3];
+    //    return sf::Color(r, g, b, a);
+    //}
 };

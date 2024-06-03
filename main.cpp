@@ -8,6 +8,7 @@
 #include "Buffer.h"
 #include "Processing.h"
 #include "FrameRate.h"
+#include "Settings.h"
 #include <thread>
 
 int main()
@@ -17,14 +18,16 @@ int main()
 	// Add pausing?
 	// tweak params for agents
 
-	Renderer renderer(720, 480, 120);
-	Buffer<unsigned char> pixel_buffer(720, 480);
-	Buffer<float> float_buffer(720, 480);
+	Settings s(720, 480, 120, 100, 10000, 20, 1);
 
-	AgentHandler agent_handler(100000);
-	Processing processing(500, 0);
+	Renderer renderer(s.get_width(), s.get_height(), s.get_frame_rate_limit());
+	Buffer<unsigned char> pixel_buffer(s.get_width(), s.get_height());
+	Buffer<float> float_buffer(s.get_width(), s.get_height());
 
-	FrameRate frame_rate(100);
+	AgentHandler agent_handler(s.get_num_agents(), &float_buffer);
+	Processing processing(s.get_fade_speed(), s.get_blur_speed());
+
+	FrameRate frame_rate(s.get_average_frame_rate_window());
 	sf::Clock clock;
 
 	while (renderer.is_open())
@@ -48,7 +51,7 @@ int main()
 		//thread2.join();
 
 		// Copy float_buffer into pixel_buffer to be drawn
-		Buffer<unsigned char>::copy_buffer(&float_buffer, &pixel_buffer);
+		Buffer<unsigned char>::copy_pixels(&float_buffer, &pixel_buffer);
 		// Draw to the screen
 		renderer.draw(&pixel_buffer, frame_rate.get_average_frame_rate());
 

@@ -143,6 +143,7 @@
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="FrameRate.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>

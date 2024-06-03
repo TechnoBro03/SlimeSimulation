@@ -1,6 +1,6 @@
 #pragma once
 
-#define index(x,y) ((x + y * Renderer::width) * 4)
+//#define index(x,y) ((x + y * Renderer::width) * 4)
 
 //namespace s
 //{

@@ -9,8 +9,6 @@
 #include <cmath>
 //#include <stdlib.h>
 
-// Class that holds functions to update agents, agent struct within
-
 class AgentHandler
 {
 private:
@@ -18,14 +16,14 @@ private:
 	unsigned int num_agents;
 
 public:
-	AgentHandler(unsigned int num_agents)
+	AgentHandler(unsigned int num_agents, Buffer<float>* buffer)
 	{
 		this->num_agents = num_agents;
 		agents = new Agent * [num_agents];
 
 		for (unsigned int i = 0; i < num_agents; i++)
 		{
-			agents[i] = new Agent(50, 50, Utilities::hash(i) / 683565275.417);
+			agents[i] = new Agent(buffer->get_width() / 2, buffer->get_height() / 2, Utilities::hash(i) / 683565275.417);
 		}
 	}
 
@@ -33,6 +31,7 @@ public:
 	{
 		for (unsigned int i = 0; i < num_agents; i++)
 		{
+			agents[i]->update_rotation(buffer, delta_time);
 			agents[i]->update_position(buffer, delta_time);
 			agents[i]->draw(buffer);
 		}
