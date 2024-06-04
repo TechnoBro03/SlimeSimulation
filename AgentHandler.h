@@ -7,7 +7,6 @@
 #include "Buffer.h"
 
 #include <cmath>
-//#include <stdlib.h>
 
 class AgentHandler
 {
@@ -16,74 +15,26 @@ private:
 	unsigned int num_agents;
 
 public:
-	AgentHandler(unsigned int num_agents, Buffer<float>* buffer)
+	AgentHandler(unsigned int width, unsigned int height, unsigned int num_agents, float speed, float turn_speed, unsigned int sensor_offset, float sensor_angle,unsigned int sensor_size)
 	{
 		this->num_agents = num_agents;
 		agents = new Agent * [num_agents];
 
 		for (unsigned int i = 0; i < num_agents; i++)
 		{
-			agents[i] = new Agent(buffer->get_width() / 2, buffer->get_height() / 2, Utilities::hash(i) / 683565275.417);
+			agents[i] = new Agent(width / 2, height / 2, Utilities::hash(i) / 683565275.417, speed, turn_speed, sensor_offset, sensor_angle, sensor_size);
 		}
 	}
 
-	void update_agents(Buffer<float>* buffer, float delta_time)
+	void update_agents(Buffer<float>* buffer, float delta_time, unsigned int start, unsigned int stop)
 	{
-		for (unsigned int i = 0; i < num_agents; i++)
+		for (unsigned int i = start; i < stop; i++)
 		{
 			agents[i]->update_rotation(buffer, delta_time);
 			agents[i]->update_position(buffer, delta_time);
 			agents[i]->draw(buffer);
 		}
 	}
-
-	//static s::Uint sense(agent& a, float angle)
-	//{
-	//	float sensorAngle = a.rotation + angle;
-	//	s::Uint sensorCenterX = a.x + cosf(sensorAngle) * sensorOffset;
-	//	s::Uint sensorCenterY = a.y + sinf(sensorAngle) * sensorOffset;
-	//	s::Uint sum = 0;
-	//	for (int oX = -sensorSize; oX <= sensorSize; oX++)
-	//	{
-	//		for (int oY = -sensorSize; oY <= sensorSize; oY++)
-	//		{
-	//			s::Uint sampleX = sensorCenterX + oX;
-	//			s::Uint sampleY = sensorCenterY + oY;
-	//			if (sampleX >= 0 && sampleX < Renderer::width && sampleY >= 0 && sampleY < Renderer::height)
-	//			{
-	//				sum += Renderer::getPixel(index(sampleX, sampleY)).a;
-	//				//sum += Renderer::getPixel(sampleX, sampleY).a;
-	//			}
-	//		}
-	//	}
-	//	return sum;
-	//}
-
-	//static void updateRotation(agent& a)
-	//{
-	//	s::Uint forward = sense(a, 0);
-	//	s::Uint left = sense(a, sensorAngle);
-	//	s::Uint right = sense(a, -sensorAngle);
-
-	//	float random = (s::hash((s::Uint)(a.x*a.y))%1000)/1000.0f;
-	//	if (forward > left && forward > right)
-	//	{
-	//		a.rotation += 0;
-	//	}
-	//	else if (forward < left && forward < right)
-	//	{
-	//		a.rotation += (random - 0.5) * 2 * turnSpeed; //*delta time
-	//	}
-	//	else if (right > left)
-	//	{
-	//		a.rotation -= random * turnSpeed;
-	//	}
-	//	else if (left > right)
-	//	{
-	//		a.rotation += random * turnSpeed;
-	//	}
-
-	//}
 
 public:
 	~AgentHandler()

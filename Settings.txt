@@ -1,0 +1,13 @@
+width:1920
+height:1080
+frame_rate_limit:60
+average_frame_rate_window:100
+num_threads:24
+fade_speed:50
+blur_speed:1
+num_agents:100000
+speed:50f
+turn_speed:6
+sensor_offset:25
+sensor_size:1
+sensor_angle:0.52

@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <iostream>
+
 template <typename T>
 class Buffer
 {
@@ -61,15 +63,4 @@ public:
         pixels[i + 2] = color.b;
         pixels[i + 3] = color.a;
     }
-
-    //sf::Color get_pixel(unsigned int i)
-    //{
-    //    /*unsigned int i = (y * width + x) * 4;*/
-    //    sf::Uint8 r, g, b, a;
-    //    r = pixels[i];
-    //    g = pixels[i + 1];
-    //    b = pixels[i + 2];
-    //    a = pixels[i + 3];
-    //    return sf::Color(r, g, b, a);
-    //}
 };

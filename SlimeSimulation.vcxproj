@@ -142,8 +142,10 @@
     <ClInclude Include="AgentHandler.h" />
     <ClInclude Include="Buffer.h" />
     <ClInclude Include="FrameRate.h" />
+    <ClInclude Include="Processing.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="Simulation.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
