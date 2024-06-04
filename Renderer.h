@@ -10,7 +10,7 @@ class Renderer
 private:
     sf::Texture texture;     // Creates texture. Stores pixel array
     sf::Sprite sprite;       // Creates sprite. Allows texture to interface with the render window
-    sf::RenderWindow window; // Creates window.
+    sf::RenderWindow window; // Render window
     sf::Text text;
     sf::Font f;
 public:
@@ -24,7 +24,7 @@ public:
         window.create(sf::VideoMode(width, height), "Slime Simulation");
         window.setFramerateLimit(framerate_limit);
 
-        f.loadFromFile("C:/Users/matth/AppData/Local/Microsoft/Windows/Fonts/JetBrainsMono-Medium.ttf");
+        f.loadFromFile("JetBrainsMono-Medium.ttf");
         text.setFont(f);
         text.setCharacterSize(12); // in pixels, not points!
         text.setFillColor(sf::Color::Red);
@@ -45,8 +45,6 @@ public:
         window.draw(text);
 
         window.display();        // Display update
-
-
     }
 
     void handle_events()

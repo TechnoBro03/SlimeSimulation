@@ -23,6 +23,7 @@ public:
 	void run()
 	{
 		Renderer renderer(settings->get_width(), settings->get_height(), settings->get_frame_rate_limit());
+
 		Buffer<unsigned char> pixel_buffer(settings->get_width(), settings->get_height());
 		Buffer<float> float_buffer(settings->get_width(), settings->get_height());
 
@@ -30,6 +31,7 @@ public:
 		AgentHandler agent_handler(settings->get_width(), settings->get_height(), settings->get_num_agents(), sp,
 			settings->get_speed(), settings->get_turn_speed(),
 			settings->get_sensor_offset(), settings->get_sensor_angle(), settings->get_sensor_size());
+
 		Processing processing(settings->get_fade_speed(), settings->get_blur_speed());
 
 		FrameRate frame_rate(settings->get_average_frame_rate_window());
@@ -49,7 +51,7 @@ public:
 			frame_rate.add_frame_time(delta_time);
 
 			// Update simulation
-			// 
+			
 			// Update agents
 			for (unsigned int i = 0; i < num_threads; i++)
 			{

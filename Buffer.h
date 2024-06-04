@@ -17,6 +17,7 @@ public:
         this->width = width;
         this->height = height;
 
+        // 4 bytes per pixel, RGBA
         buffer_size = width * height * 4;
 
         pixels = new T[buffer_size];
@@ -30,15 +31,15 @@ public:
         delete[] pixels;
     }
 
-    unsigned int get_buffer_size()
+    unsigned int get_buffer_size() const
     {
         return buffer_size;
     }
-    unsigned int get_width()
+    unsigned int get_width() const
     {
         return width;
     }
-    unsigned int get_height()
+    unsigned int get_height() const
     {
         return height;
     }
@@ -50,7 +51,7 @@ public:
         std::copy(source->get_pixels(), source->get_pixels() + source->get_buffer_size(), destination->get_pixels());
     }
 
-    T* get_pixels()
+    T* get_pixels() const
     {
         return pixels;
     }

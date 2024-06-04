@@ -23,9 +23,6 @@
     <ClInclude Include="Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AgentHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>

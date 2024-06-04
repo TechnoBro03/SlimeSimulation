@@ -19,6 +19,7 @@ private:
     int spawn_pattern;
 
 public:
+    // Read settings from path (I know this isn't pretty...)
 	Settings(const std::string path)
 	{
         std::ifstream file(path);
@@ -165,7 +166,7 @@ public:
     {
         return num_agents;
     }
-    unsigned int get_num_threads()
+    unsigned int get_num_threads() const
     {
         return num_threads;
     }
@@ -177,27 +178,27 @@ public:
     {
         return blur_speed;
     }
-    unsigned int get_sensor_offset()
+    unsigned int get_sensor_offset() const
     {
         return sensor_offset;
     }
-    unsigned int get_sensor_size()
+    unsigned int get_sensor_size() const
     {
         return sensor_size;
     }
-    float get_speed()
+    float get_speed() const
     {
         return speed;
     }
-    float get_turn_speed()
+    float get_turn_speed() const
     {
         return turn_speed;
     }
-    float get_sensor_angle()
+    float get_sensor_angle() const
     {
         return sensor_angle;
     }
-    int get_spawn_pattern()
+    int get_spawn_pattern() const
     {
         return spawn_pattern;
     }

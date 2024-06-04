@@ -19,7 +19,7 @@ public:
         this->blur_speed = blur_speed;
     }
 
-    void fade_and_blur(Buffer<float>* buffer, float delta_time, unsigned int start, unsigned int stop)
+    void fade_and_blur(Buffer<float>* buffer, float delta_time, unsigned int start, unsigned int stop) const
     {
         unsigned int buffer_size = buffer->get_buffer_size();
         unsigned int width = buffer->get_width();

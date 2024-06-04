@@ -11,9 +11,9 @@ class Agent
 private:
 	float x, y, rotation;
 	float sensor_offset; // Distance from agent
-	int sensor_size; // Side length of square sensor
+	int sensor_size; // Sensor size (1=3x3, 2=5x5, 3=7x7, etc)
 	float sensor_angle; // Angle in radians
-	float speed; // Speed
+	float speed; // Pixels per second
 	float turn_speed; // Turn speed
 	
 public:
@@ -27,20 +27,22 @@ public:
 		this->turn_speed = turn_speed;
 	}
 
-	void draw(Buffer<float>* buffer)
+	void draw(Buffer<float>* buffer) const
 	{
 		buffer->set_pixel((unsigned int)x, (unsigned int)y, sf::Color::Magenta);
 	}
 
 	void update_rotation(Buffer<float>* buffer, float delta_time)
 	{
+		// Get trail weight at each sensor
 		float forward_weight = sense(0, buffer);
 		float left_weight = sense(-sensor_angle, buffer);
 		float right_weight = sense(sensor_angle, buffer);
 
-		// 0 - 1
+		// 0-1
 		float random_turn = Utilities::hash(x + y + rotation) / 4294967295.0f;
 
+		// Turn based on weights
 		if (forward_weight > left_weight && forward_weight > right_weight)
 			rotation += 0;
 		else if (forward_weight < left_weight && forward_weight < right_weight)
@@ -84,14 +86,14 @@ public:
 		//}
 	}
 
-	float sense(float angle, Buffer<float>* buffer)
+	float sense(float angle, Buffer<float>* buffer) const
 	{
 		float* pixels = buffer->get_pixels();
 		angle = rotation + angle;
 		unsigned int sensor_center_x = x + cosf(angle) * sensor_offset;
 		unsigned int sensor_center_y = y + sinf(angle) * sensor_offset;
 
-		// Find "density" of trails within sensor
+		// Find weight of trails within sensor
 		float sum = 0;
 		for (int offset_x = -sensor_size; offset_x <= sensor_size; offset_x++)
 		{

@@ -26,7 +26,8 @@ public:
 		frame_times[index++] = frame_time;
 	}
 
-	float get_average_frame_rate()
+	// Gets average frame rate within window (last X frames)
+	float get_average_frame_rate() const
 	{
 		float average_frame_time = 0;
 		for (unsigned int i = 0; i < window; i++)

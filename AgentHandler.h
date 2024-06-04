@@ -31,18 +31,21 @@ public:
 		{
 			switch (sp)
 			{
+			// All random
 			case SpawnPattern::random:
 				x = rand() / (float)RAND_MAX * width;
 				y = rand() / (float)RAND_MAX * height;
 				rotation = rand() / (RAND_MAX * 0.5f) * Utilities::PI;
 				break;
 
+			// Spawn in the center of screen facing out
 			case SpawnPattern::center_out:
 				x = target_x;
 				y = target_y;
 				rotation = rand() / (RAND_MAX * 0.5f) * Utilities::PI;
 				break;
 
+			// Spawn in a circle facing out
 			case SpawnPattern::circle_out:
 				radius = 300;
 				angle = rand() / (RAND_MAX * 0.5f) * Utilities::PI;
@@ -52,6 +55,7 @@ public:
 				rotation = std::atan2(y - target_y, x - target_x);
 				break;
 				
+			// Spawn in a circle facing in
 			case SpawnPattern::circle_in:
 				radius = 300;
 				angle = rand() / (RAND_MAX * 0.5f) * Utilities::PI;
@@ -61,6 +65,7 @@ public:
 				rotation = std::atan2(target_y - y, target_x - x);
 				break;
 			
+			// Spawn in a ring facing tangentially
 			case SpawnPattern::ring:
 				inner = 200;  outer = 400;
 				angle = rand() / (RAND_MAX * 0.5f) * Utilities::PI;
@@ -90,33 +95,10 @@ public:
 public:
 	~AgentHandler()
 	{
-		// Change to delete all constructed objects
 		for (unsigned int i = 0; i < num_agents; i++)
 		{
 			delete agents[i];
 		}
 		delete[] agents;
 	}
-
-	//// Start/stop points included for multithreading
-	//static void updateAgents(s::Uint start, s::Uint stop)
-	//{
-	//	for(s::Uint i = start; i < stop; i++)
-	//	{
-	//		agent& a = agents[i];
-	//		addTrail(a);
-	//		updateRotation(a);
-	//		updatePosition(a);
-	//	}
-	//}
-
-	//static void randomStart()
-	//{
-	//	for (s::Uint i = 0; i < numAgents; i++)
-	//	{
-	//		agents[i].x = s::hash(i) % Renderer::width;
-	//		agents[i].y = s::hash(i * i) % Renderer::height;
-	//		agents[i].rotation = (s::hash(i) % 2141) / 214.1;
-	//	}
-	//}
 };
