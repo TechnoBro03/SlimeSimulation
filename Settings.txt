@@ -3,11 +3,12 @@ height:1080
 frame_rate_limit:60
 average_frame_rate_window:100
 num_threads:24
-fade_speed:50
+fade_speed:30
 blur_speed:1
 num_agents:100000
-speed:50f
-turn_speed:6
-sensor_offset:25
+speed:50
+turn_speed:4
+sensor_offset:35
 sensor_size:1
 sensor_angle:0.52
+spawn_pattern:4

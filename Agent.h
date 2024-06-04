@@ -29,13 +29,13 @@ public:
 
 	void draw(Buffer<float>* buffer)
 	{
-		buffer->set_pixel((unsigned int)x, (unsigned int)y, sf::Color::White);
+		buffer->set_pixel((unsigned int)x, (unsigned int)y, sf::Color::Magenta);
 	}
 
 	void update_rotation(Buffer<float>* buffer, float delta_time)
 	{
-		float forward_weight = sense(-sensor_angle, buffer);
-		float left_weight = sense(0, buffer);
+		float forward_weight = sense(0, buffer);
+		float left_weight = sense(-sensor_angle, buffer);
 		float right_weight = sense(sensor_angle, buffer);
 
 		// 0 - 1
@@ -43,8 +43,8 @@ public:
 
 		if (forward_weight > left_weight && forward_weight > right_weight)
 			rotation += 0;
-		/*else if (forward_weight < left_weight && forward_weight < right_weight)
-			rotation += (random_turn - 0.5) * 2 * turn_speed * delta_time;*/
+		else if (forward_weight < left_weight && forward_weight < right_weight)
+			rotation += (random_turn - 0.5) * 2 * turn_speed * delta_time;
 		else if (right_weight > forward_weight)
 			rotation += random_turn*turn_speed*delta_time;
 		else if (left_weight > forward_weight)

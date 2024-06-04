@@ -16,6 +16,8 @@ private:
     unsigned int sensor_offset, sensor_size;
     float speed, turn_speed, sensor_angle;
 
+    int spawn_pattern;
+
 public:
 	Settings(const std::string path)
 	{
@@ -132,6 +134,14 @@ public:
         std::getline(ss, var, ':');
         std::getline(ss, var, ':');
         sensor_angle = std::stof(var);
+
+        // Spawn pattern
+        std::getline(file, line);
+        ss = std::stringstream(line);
+
+        std::getline(ss, var, ':');
+        std::getline(ss, var, ':');
+        spawn_pattern = std::stoi(var);
 	}
 
     // Get methods
@@ -186,5 +196,9 @@ public:
     float get_sensor_angle()
     {
         return sensor_angle;
+    }
+    int get_spawn_pattern()
+    {
+        return spawn_pattern;
     }
 };
