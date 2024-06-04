@@ -1,11 +1,11 @@
 width:1920
 height:1080
-frame_rate_limit:60
+frame_rate_limit:120
 average_frame_rate_window:100
 num_threads:24
 fade_speed:30
 blur_speed:1
-num_agents:100000
+num_agents:1000000
 speed:50
 turn_speed:4
 sensor_offset:35
